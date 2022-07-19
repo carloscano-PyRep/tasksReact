@@ -8,10 +8,11 @@ class Todoform extends React.Component {
             "number": '',
             "title": '',
             "description": '',
-            "priority": 'low',
+            "priority": '',
             "responsible": ''
         };
         this.handleInput = this.handleInput.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
     handleInput(e) {
         const {value,name} = e.target;
@@ -20,18 +21,23 @@ class Todoform extends React.Component {
         })
         /* console.log(e.target.value, e.target.name); */
     }
+    handleSubmit(e){
+        e.preventDefault();
+        this.props.onAddTodo(this.state);
+        console.log('Enviando datos')
+    }
     render() {
         return (
             <div className="col-md-4">
                 <div className="card">
-                    <div className="card-body">
+                    <form className="card-body" onSubmit={this.handleSubmit}>
                         <div className="form-group mb-3">
                             <input
                                 type="text"
                                 name="title"
                                 onChange={this.handleInput}
                                 className="form-control"
-                                placeholder="Title" />
+                                placeholder="Título" />
                         </div>
                         <div className="form-group mb-3">
                             <input
@@ -39,7 +45,7 @@ class Todoform extends React.Component {
                                 name="responsible"
                                 onChange={this.handleInput}
                                 className="form-control"
-                                placeholder="Responsible" />
+                                placeholder="Responsable" />
                         </div>
                         <div className="form-group mb-3">
                             <input
@@ -47,21 +53,22 @@ class Todoform extends React.Component {
                                 name="description"
                                 onChange={this.handleInput}
                                 className="form-control"
-                                placeholder="Description" />
+                                placeholder="Descripción" />
                         </div>
                         <div className="form-group mb-3">
+                            Prioridad
                             <select
                             name="priority"
                             className="form-control"
                             onChange={this.handleInput}
                             >
-                                <option>Low</option>
-                                <option>Medium</option>
-                                <option>High</option>
+                                <option>Bajo</option>
+                                <option>Medio</option>
+                                <option>Alto</option>
                             </select>
                         </div>
-                        <button type="button" className="btn btn-success">Save</button>
-                    </div>
+                        <button type="submit" className="btn btn-success">Guardar</button>
+                    </form>
                 </div>
             </div>
         )
